@@ -1,0 +1,52 @@
+p{
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.main{
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 646px;
+    height: 891px;
+    left: 397px;
+    top: 66px;
+
+    background: linear-gradient(180deg, rgba(223, 239, 254, 0) 0%, #DCEEFF 100%);
+    border: 2px solid #000000;
+    filter: drop-shadow(8px 12px 15px rgba(0, 0, 0, 0.25));
+
+}
+
+#author{
+    position: absolute;
+    width: 551px;
+    height: 63px;
+    left: 32px;
+    top: 23px;
+
+}
+
+#display{
+    position: absolute;
+    width: 565px;
+    height: 116px;
+    left: 41px;
+    top: 159px;
+
+    background: #C4C4C4;
+    border: 1px solid #000000;
+    box-shadow: inset 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.op-butt{
+    background: #97B4FF;
+    border: 1px solid #000000;
+}
