@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="main">
@@ -12,28 +16,30 @@
         <div id="display">
             <p id="result"></p>
         </div>
-        <div id="numbers">
-            <input type="button" value="7" class="num-butt" >
-            <input type="button" value="8" class="num-butt" >
-            <input type="button" value="9" class="num-butt" >
-            <input type="button" value="4" class="num-butt" >
-            <input type="button" value="5" class="num-butt" >
-            <input type="button" value="6" class="num-butt" >
-            <input type="button" value="1" class="num-butt" >
-            <input type="button" value="2" class="num-butt" >
-            <input type="button" value="3" class="num-butt" >
-            <input type="button" value="0" class="num-butt" >
-            <input type="button" value="." class="num-butt" >
-            <input type="button" value="00" class="num-butt">
-        </div>
-        <div id="operators">
-            <input type="button" value="*" class="op-butt" >
-            <input type="button" value="/" class="op-butt" >
-            <input type="button" value="-" class="op-butt" >
-            <input type="button" value="+" class="op-butt" >
-            <input type="button" value="=" class="op-butt" >
-            <input type="button" value="c" class="op-butt" >
-            <input type="button" value="<" class="op-butt" >      
+        <div class="buttns-container">
+            <div class="buttns" id="numbers">
+                <input type="button" value="7" class="num-butt" >
+                <input type="button" value="8" class="num-butt" >
+                <input type="button" value="9" class="num-butt" >
+                <input type="button" value="4" class="num-butt" >
+                <input type="button" value="5" class="num-butt" >
+                <input type="button" value="6" class="num-butt" >
+                <input type="button" value="1" class="num-butt" >
+                <input type="button" value="2" class="num-butt" >
+                <input type="button" value="3" class="num-butt" >
+                <input type="button" value="0" class="num-butt" >
+                <input type="button" value="." class="num-butt" >
+                <input type="button" value="00" class="num-butt">
+            </div>
+            <div class="buttns" id="operators">
+                <input type="button" value="*" class="op-butt" >
+                <input type="button" value="/" class="op-butt" >
+                <input type="button" value="-" class="op-butt" >
+                <input type="button" value="+" class="op-butt" >
+                <input type="button" value="=" class="op-butt" >
+                <input type="button" value="c" class="op-butt long-butt">
+                <input type="button" value="<" class="op-butt" >      
+            </div>
         </div>
     </div>
 </body>
