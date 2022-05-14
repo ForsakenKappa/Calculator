@@ -1,11 +1,9 @@
-p{
+.text{
     font-family: 'Exo';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 21px;
-    display: flex;
-    align-items: center;
 
     color: #000000;
 }
@@ -49,7 +47,16 @@ body{
 
 }
 
+#result{
+    font-size: 60px;
+    padding: 12px;
+}
+
 #display{
+
+    display: flex;
+    justify-content: end;
+    align-items: center;
 
     width: 565px;
     height: 116px;
@@ -58,11 +65,50 @@ body{
     background: #C4C4C4;
     border: 1px solid #000000;
     box-shadow: inset 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+.op-butt, .num-butt{
+
+    text-shadow: 2px 2px 2px #5E5E5E;
+
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 53px;
+    text-align: center;
+
 }
 
 .op-butt{
+
+    box-sizing: border-box;
+
     background: #97B4FF;
+    color: #6f84b9;
     border: 1px solid #000000;
+    
+}
+
+.num-butt{
+
+    box-sizing: border-box;
+
+    background: #97CCFF;
+    color: #81afda;
+    border: 1px solid #000000; 
+
+
+
+}
+
+.num-butt:hover, .op-butt:hover{
+    filter: brightness(95%);
+}
+
+.num-butt:active, .op-butt:active{
+    filter: brightness(80%);
 }
 
 .buttns{
