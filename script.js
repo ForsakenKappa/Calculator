@@ -33,7 +33,7 @@ function handleOpButtns(e){
             break
         case '=':
             memory = calculate(memory);
-            displayResults()
+            resultBox.textContent = memory;
             break;
             
     }
@@ -46,10 +46,6 @@ function clear(){
 
 }
 
-function displayResults(){
-    resultBox.textContent = memory;
-}
-
 function calculate(input = ''){
 
     console.log(input);
@@ -57,18 +53,28 @@ function calculate(input = ''){
     let regExpOp = /[+\-*/]/g
 
     let numbers = input.split(regExpOp);
-    let operator = input.match(regExpOp);
+    let operators = input.match(regExpOp);
+
+    console.log(numbers);
+    console.log(operators);
+
+    if(operators.length !== 1){
+        a = numbers.shift()
+        b = numbers.shift()
+        op = operators.shift()
+        numbers.unshift(calculate(`${a}${op}${b}`));
+    } 
+
+    a = parseInt(numbers[0]);
+    b = parseInt(numbers[1]);
+    op = operators[0];
 
 
-    let a = parseInt(numbers[0]);
-    let b = parseInt(numbers[1]);
-    let op = operator[0];
+    console.log(`A = ${a}`);
+    console.log(`B = ${b}`);
+    console.log(`Operation = ${op}`);
 
-    console.log(`A = ${a}`)
-    console.log(`B = ${b}`)
-    console.log(`Operation = ${op}`)
-
-    console.log(`Doing ${a}${op}${b}`)
+    console.log(`Doing ${a}${op}${b}`);
     
     switch(op){
         case '+':
