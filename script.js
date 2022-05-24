@@ -22,65 +22,49 @@ function handleNumButtns(e){
 // I don't know what I'm doing
 
 function handleOpButtns(e){
-
-    switch(e.target.value){
-        case 'c':
-            clear();
-            break
-        case '+':
-            memory +=  '+';
-            resultBox.textContent += '+';
-            break
-        case '=':
-            memory = calculate(memory);
-            resultBox.textContent = memory;
-            break;
-            
+    
+    let expression = sliceExpressionString(memory);
+    console.log(String(expression) + !!expression)
+    
+    if(expression){
+        memory = calculate(expression);
     }
 
+    if(e.target.value === 'c'){
+        memory = '';
+    }
+    else if(e.target.value === '<'){
+        memory = memory.slice(0, -1)
+    }
+    else{
+
+        if(memory.slice(memory.length-1).match(/[-*+/]/g)){
+            memory = memory.slice(0,-1)
+        }
+
+        e.target.value === '='? memory : memory += e.target.value
+    }
+        
+    resultBox.textContent = memory;
 }
+
 
 function clear(){
-    resultBox.textContent = '0';
-    memory = '';
+    resultBox.textContent = ' ';
+
 
 }
 
-function calculate(input = ''){
+function sliceExpressionString(input = ''){
 
-    console.log(input);
+    let expression = input.match(/-?(\d+|\d+.\d+)[*+/-](\d+.\d+|\d+)/g);
 
-    let regExpOp = /[+\-*/]/g
+    return expression? expression[0] : null
+}
 
-    let numbers = input.split(regExpOp);
-    let operators = input.match(regExpOp);
+function calculate(expression){
 
-    console.log(numbers);
-    console.log(operators);
-
-    if(operators.length !== 1){
-        a = numbers.shift()
-        b = numbers.shift()
-        op = operators.shift()
-        numbers.unshift(calculate(`${a}${op}${b}`));
-    } 
-
-    a = parseInt(numbers[0]);
-    b = parseInt(numbers[1]);
-    op = operators[0];
-
-
-    console.log(`A = ${a}`);
-    console.log(`B = ${b}`);
-    console.log(`Operation = ${op}`);
-
-    console.log(`Doing ${a}${op}${b}`);
-    
-    switch(op){
-        case '+':
-            return (a + b)
-    }
-
+    return String(eval(expression))
 
 
 }
