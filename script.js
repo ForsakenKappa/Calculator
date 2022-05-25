@@ -13,8 +13,6 @@ numButtns.forEach(button => button.addEventListener('click', handleNumButtns));
 
 function handleNumButtns(e){
 
-    // 60px - default
-
     if(adjustResultBoxSize() === 1) return
 
     if(clearFlag) clear()
@@ -53,7 +51,7 @@ function handleOpButtns(e){
         memory = memory.slice(0, -1)
     }
     else if(e.target.value === '+/-'){
-        memory = String(memory * -1);
+        memory = String(memory.match(/-?(\d+.\d+|\d+)/g)[0] * -1);
     }
     else if(expression){
         memory = calculate(expression);
