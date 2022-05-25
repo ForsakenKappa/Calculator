@@ -10,9 +10,15 @@ numButtns.forEach(button => button.addEventListener('click', handleNumButtns));
 function handleNumButtns(e){
 
     if(memory.length > 12) return
-    if(parseInt(e.target.value) == 0 && parseInt(memory) == 0) return // parseInt for e.target.value since there is a '00' button
 
-    memory += e.target.value
+    if(parseInt(e.target.value) === 0 && memory.length < 2){ // parseInt for e.target.value since there is a '00' button
+        memory = '0';
+    } else if(e.target.value === '.' && (memory.match(/\./g) || !memory)){
+        return
+    } else {
+        memory += e.target.value
+    }
+
 
     resultBox.textContent = memory;
 
