@@ -8,30 +8,75 @@ let numOfDigitAfterDecimal = 8;
 
 let decimalPrecision = Math.pow(10, numOfDigitAfterDecimal);
 
-opButtns.forEach(button => button.addEventListener('click', handleOpButtns))
-numButtns.forEach(button => button.addEventListener('click', handleNumButtns));
+opButtns.forEach(button => button.addEventListener('click', (e) => handleOperators(e.target.value)))
+numButtns.forEach(button => button.addEventListener('click', (e) => handleNumbers(e.target.value)));
 
-function handleNumButtns(e){
+document.addEventListener('keypress', handleNumPadButtns)
+
+function handleNumPadButtns(e){
+    if(!e.code.match(/Numpad/g)) return
+    console.log(!!e.key.match(/\d/g));
+    switch(e.key){
+        case "+":
+        case '-':
+        case '*':
+        case '/':
+        case 'Enter':
+            handleOperators(e.key);
+            break
+        default:
+            handleNumbers(e.key);
+    }
+}
+
+function handleNumbers(number = ''){
 
     if(adjustResultBoxSize() === 1) return
 
     if(clearFlag) clear()
 
-    if(parseInt(e.target.value) === 0 && (parseFloat(memory) === 0 || !memory)) { // parseInt for e.target.value since there is a '00' buttonm
+    if(parseInt(number) === 0 && (parseFloat(memory) === 0 || !memory)) { // parseInt for number since there is a '00' buttonm
         memory = '0'; 
     }
-    else if(e.target.value === '.'){
+    else if(number === '.'){
         if (memory.match(/\./g)) return
 
         !memory? memory += '0.' :
-                 memory += e.target.value
+                 memory += number
     } 
     else {
-        memory === '0'? memory = e.target.value:
-                        memory += e.target.value;
+        memory === '0'? memory = number:
+                        memory += number;
     }
 
     resultBox.textContent = memory;
+}
+
+function handleOperators(operator = ''){
+
+    let expression = sliceExpressionString(memory);
+    
+    if(operator === 'c' || clearFlag){
+        clear()
+    }
+    else if(operator === '<'){
+        memory = memory.slice(0, -1)
+    }
+    else if(operator === '+/-'){
+        memory = String(memory.match(/-?(\d+.\d+|\d+)/g)[0] * -1);
+    }
+    else if(expression){
+        memory = calculate(expression);
+        adjustResultBoxSize()
+    }
+    else{
+
+        if(memory.slice(memory.length-1).match(/[-*+/]/g)) memory = memory.slice(0,-1)
+        operator === '=' || operator === 'Enter'? memory : memory += operator
+    }
+        
+    resultBox.textContent = memory;
+
 
 }
 
@@ -51,28 +96,7 @@ function clear(){
 
 function handleOpButtns(e){
     
-    let expression = sliceExpressionString(memory);
-    
-    if(e.target.value === 'c' || clearFlag){
-        clear()
-    }
-    else if(e.target.value === '<'){
-        memory = memory.slice(0, -1)
-    }
-    else if(e.target.value === '+/-'){
-        memory = String(memory.match(/-?(\d+.\d+|\d+)/g)[0] * -1);
-    }
-    else if(expression){
-        memory = calculate(expression);
-        adjustResultBoxSize()
-    }
-    else{
 
-        if(memory.slice(memory.length-1).match(/[-*+/]/g)) memory = memory.slice(0,-1)
-        e.target.value === '='? memory : memory += e.target.value
-    }
-        
-    resultBox.textContent = memory;
 }
 
 function sliceExpressionString(input = ''){
