@@ -3,6 +3,9 @@ const numButtns = document.querySelectorAll('.num-butt');
 const opButtns  = document.querySelectorAll('.op-butt');
 
 let memory = '';
+let numOfDigitAfterDecimal = 4;
+
+let decimalPrecision = Math.pow(10, numOfDigitAfterDecimal);
 
 opButtns.forEach(button => button.addEventListener('click', handleOpButtns))
 numButtns.forEach(button => button.addEventListener('click', handleNumButtns));
@@ -70,7 +73,9 @@ function sliceExpressionString(input = ''){
 
 function calculate(expression){
 
-    return String(eval(expression))
+
+
+    return String(Math.round(eval(expression) * decimalPrecision) / decimalPrecision)
 
 
 }
