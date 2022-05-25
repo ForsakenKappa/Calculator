@@ -17,9 +17,19 @@ function handleNumButtns(e){
 
     if(clearFlag) clear()
 
-    if(parseInt(e.target.value) === 0 && memory.length < 2) memory = '0'; // parseInt for e.target.value since there is a '00' buttonm
-    else if(e.target.value === '.' && (memory.match(/\./g) || !memory)) return
-    else memory += e.target.value;
+    if(parseInt(e.target.value) === 0 && (parseFloat(memory) === 0 || !memory)) { // parseInt for e.target.value since there is a '00' buttonm
+        memory = '0'; 
+    }
+    else if(e.target.value === '.'){
+        if (memory.match(/\./g)) return
+
+        !memory? memory += '0.' :
+                 memory += e.target.value
+    } 
+    else {
+        memory === '0'? memory = e.target.value:
+                        memory += e.target.value;
+    }
 
     resultBox.textContent = memory;
 
@@ -42,7 +52,6 @@ function clear(){
 function handleOpButtns(e){
     
     let expression = sliceExpressionString(memory);
-    console.log(String(expression) + !!expression)
     
     if(e.target.value === 'c' || clearFlag){
         clear()
