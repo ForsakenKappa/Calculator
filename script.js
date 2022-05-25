@@ -22,19 +22,14 @@ function handleNumButtns(e){
         memory += e.target.value
     }
 
-
     resultBox.textContent = memory;
 
 }
-
-
-// I don't know what I'm doing
 
 function handleOpButtns(e){
     
     let expression = sliceExpressionString(memory);
     console.log(String(expression) + !!expression)
-    
     
     if(e.target.value === 'c'){
         memory = '';
@@ -50,21 +45,11 @@ function handleOpButtns(e){
     }
     else{
 
-        if(memory.slice(memory.length-1).match(/[-*+/]/g)){
-            memory = memory.slice(0,-1)
-        }
-
+        if(memory.slice(memory.length-1).match(/[-*+/]/g)) memory = memory.slice(0,-1)
         e.target.value === '='? memory : memory += e.target.value
     }
         
     resultBox.textContent = memory;
-}
-
-
-function clear(){
-    resultBox.textContent = ' ';
-
-
 }
 
 function sliceExpressionString(input = ''){
@@ -76,9 +61,6 @@ function sliceExpressionString(input = ''){
 
 function calculate(expression){
 
-
-
     return String(Math.round(eval(expression) * decimalPrecision) / decimalPrecision)
-
 
 }
