@@ -42,6 +42,9 @@ function handleOpButtns(e){
     else if(e.target.value === '<'){
         memory = memory.slice(0, -1)
     }
+    else if(e.target.value === '+/-'){
+        memory = String(memory * -1);
+    }
     else if(expression){
         memory = calculate(expression);
     }
