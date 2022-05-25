@@ -2,8 +2,10 @@ const resultBox = document.querySelector('#result');
 const numButtns = document.querySelectorAll('.num-butt');
 const opButtns  = document.querySelectorAll('.op-butt');
 
+let operand = '';
 let memory = '';
 let clearFlag = false;
+let allowDecimal = true;
 let numOfDigitAfterDecimal = 8;
 
 let decimalPrecision = Math.pow(10, numOfDigitAfterDecimal);
@@ -14,8 +16,11 @@ numButtns.forEach(button => button.addEventListener('click', (e) => handleNumber
 document.addEventListener('keypress', handleNumPadButtns)
 
 function handleNumPadButtns(e){
+    
+    if(e.key === 'c') handleOperators('c');
+    if(e.key === 'd') handleOperators('<');
+
     if(!e.code.match(/Numpad/g)) return
-    console.log(!!e.key.match(/\d/g));
     switch(e.key){
         case "+":
         case '-':
@@ -29,34 +34,41 @@ function handleNumPadButtns(e){
     }
 }
 
-function handleNumbers(number = ''){
+function handleNumbers(input = ''){
 
-    if(adjustResultBoxSize() === 1) return
+    if(adjustResultBoxSize() === 1 || operand.length > 12) return
 
     if(clearFlag) clear()
 
-    if(parseInt(number) === 0 && (parseFloat(memory) === 0 || !memory)) { // parseInt for number since there is a '00' buttonm
-        memory = '0'; 
+    if(parseInt(input) === 0 && (parseFloat(operand) === 0 || !operand)) { // parseInt for input since there is a '00' buttonm
+        operand = '0'; 
     }
-    else if(number === '.'){
-        if (memory.match(/\./g)) return
-
-        !memory? memory += '0.' :
-                 memory += number
+    else if(input === '.' ){
+        if ((operand.match(/\./g))) return
+        !operand? operand += '0.' :
+                 operand += input;
     } 
     else {
-        memory === '0'? memory = number:
-                        memory += number;
+        operand === '0'? operand = input:
+                        operand += input;
     }
 
-    resultBox.textContent = memory;
+    resultBox.textContent = operand;
 }
 
 function handleOperators(operator = ''){
 
-    let expression = sliceExpressionString(memory);
+    memory += operand;
+    operand = '';
+
+    expression = sliceExpressionString(memory);
     
-    if(operator === 'c' || clearFlag){
+    if(expression){
+        memory = calculate(expression);
+        if (!clearFlag) handleOperators(operator);
+        adjustResultBoxSize()
+    }
+    else if(operator === 'c' || clearFlag){
         clear()
     }
     else if(operator === '<'){
@@ -65,19 +77,14 @@ function handleOperators(operator = ''){
     else if(operator === '+/-'){
         memory = String(memory.match(/-?(\d+.\d+|\d+)/g)[0] * -1);
     }
-    else if(expression){
-        memory = calculate(expression);
-        adjustResultBoxSize()
-    }
     else{
 
-        if(memory.slice(memory.length-1).match(/[-*+/]/g)) memory = memory.slice(0,-1)
+        if(memory.slice(memory.length-1).match(/[-*+/]/g)) memory = memory.slice(0,-1) 
         operator === '=' || operator === 'Enter'? memory : memory += operator
     }
         
     resultBox.textContent = memory;
-
-
+    
 }
 
 function adjustResultBoxSize(){
@@ -90,14 +97,11 @@ function adjustResultBoxSize(){
 
 function clear(){
     memory = '';
+    operand = '';
     resultBox.style.fontSize = '60px';
     clearFlag = false;
 }
 
-function handleOpButtns(e){
-    
-
-}
 
 function sliceExpressionString(input = ''){
 
@@ -109,7 +113,7 @@ function sliceExpressionString(input = ''){
 function makeWittyComment(){
 
     clearFlag = true;
-    let choice = Math.floor(Math.random() * 5)
+    let choice = Math.floor(Math.random() * 12)
 
     switch(choice){
         case 0: return 'Division by zero detected'
@@ -117,6 +121,14 @@ function makeWittyComment(){
         case 2: return 'Oh no... Division by zero'
         case 3: return 'Why would you do that?'
         case 4: return 'I was a young mathematician like you. Then I divided by 0'
+        case 5: return 'Div by zero? Wacky'
+        case 6: return 'Nope'
+        case 7: return 'I\'m in you walls :p'
+        case 8: return 'Nani?'
+        case 9: return 'This division by zero was sponsored by Tom Clancy\'s: The Division'
+        case 10: return 'Got any... uhh... integers (o u o) ?'
+        case 11: return 'Wanna play minecraft? |- u - |"'
+
     }
 }
 
